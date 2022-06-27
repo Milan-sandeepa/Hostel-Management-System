@@ -29,6 +29,7 @@ public class LoginFormController {
     public PasswordField txtPassword;
     public Label lblError;
 
+    //Dependancy Injection-property injection
     private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.USER);
 
     public void LoginOnAction(ActionEvent actionEvent) throws IOException {
@@ -36,7 +37,7 @@ public class LoginFormController {
         String psw=txtPassword.getText();
 
         if (uname.equalsIgnoreCase(userBO.getUserName()) & psw.equalsIgnoreCase(userBO.getPassWord())){
-            SetNavigation.setUI("test","Register",this.context);
+            SetNavigation.setUI("DashboardForm","Dashboard",this.context);
         }else {
             lblError.setText("Enter Correct Login Details");
         }
