@@ -9,7 +9,7 @@ import javax.persistence.Id;
 @AllArgsConstructor
 @Data
 @Entity
-public class Users {
+public class User {
     @Id
     private String username;
     private String password;
