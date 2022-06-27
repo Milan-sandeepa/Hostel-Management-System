@@ -2,13 +2,18 @@ package lk.ijse.hostel.dao;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public interface CrudDAO <T,ID> extends SuperDAO{
-    public boolean add(T t) throws SQLException, ClassNotFoundException;
-    public boolean update(T t) throws SQLException, ClassNotFoundException;
-    public boolean delete(ID id) throws SQLException, ClassNotFoundException;
-    public T search(ID id) throws SQLException, ClassNotFoundException;
-    public ArrayList<T> getAll() throws SQLException, ClassNotFoundException;
-    String generateNewID() throws SQLException, ClassNotFoundException;
-    boolean exist(ID id) throws SQLException, ClassNotFoundException;
+    public List<T> getAll();
+
+    public T get(ID id);
+
+    public List<T> search(ID id);
+
+    public boolean save(T entity);
+
+    public boolean update(T entity);
+
+    public boolean delete(ID id);
 }

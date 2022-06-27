@@ -10,8 +10,16 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
+import lk.ijse.hostel.bo.BOFactory;
+import lk.ijse.hostel.bo.custom.UserBO;
+import lk.ijse.hostel.entity.Room;
+import lk.ijse.hostel.entity.Student;
+import lk.ijse.hostel.util.FactoryConfiguration;
 import lk.ijse.hostel.util.SetNavigation;
+import org.hibernate.Session;
+import org.hibernate.Transaction;
 
+import javax.swing.*;
 import java.io.IOException;
 
 public class LoginFormController {
@@ -21,7 +29,20 @@ public class LoginFormController {
     public PasswordField txtPassword;
     public Label lblError;
 
+    private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.USER);
+
     public void LoginOnAction(ActionEvent actionEvent) throws IOException {
-        SetNavigation.setUI("test","dashboard",this.context);
+        String uname=txtUserName.getText();
+        String psw=txtPassword.getText();
+
+        if (uname.equalsIgnoreCase(userBO.getUserName()) & psw.equalsIgnoreCase(userBO.getPassWord())){
+            SetNavigation.setUI("test","Register",this.context);
+        }else {
+            lblError.setText("Enter Correct Login Details");
+        }
+    }
+
+    public void RegisterOnAction(ActionEvent actionEvent) throws IOException {
+
     }
 }

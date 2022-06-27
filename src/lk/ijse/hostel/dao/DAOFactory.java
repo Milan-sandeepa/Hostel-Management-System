@@ -20,11 +20,11 @@ public class DAOFactory {
         switch (types) {
             case USER:
                 return new UserDAOImpl();
-            case ITEM:
+            case STUDENT:
                 return null;
-            case ORDER:
+            case ROOM:
                 return null;
-            case ORDERDETAIL:
+            case RESERVE:
                 return null;
             case QUERYDAO:
                 return null;
@@ -32,8 +32,7 @@ public class DAOFactory {
                 return null;
         }
     }
-
     public enum DAOTypes {
-        USER, ITEM, ORDER, ORDERDETAIL, QUERYDAO
+        USER, STUDENT, ROOM, RESERVE, QUERYDAO
     }
 }
