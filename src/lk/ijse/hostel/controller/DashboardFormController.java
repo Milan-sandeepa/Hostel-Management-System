@@ -1,6 +1,7 @@
 package lk.ijse.hostel.controller;
 
 import javafx.animation.ScaleTransition;
+import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -41,20 +42,6 @@ public class DashboardFormController {
         }
     }
 
-    public void playMouseExitAnimation(MouseEvent event) {
-        if (event.getSource() instanceof ImageView) {
-            ImageView icon = (ImageView) event.getSource();
-            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
-            scaleT.setToX(1);
-            scaleT.setToY(1);
-            scaleT.play();
-
-            icon.setEffect(null);
-            lblMenu.setText("Welcome");
-            lblDescription.setText("Please select one of above main operations to proceed");
-        }
-    }
-
     public void playMouseEnterAnimation(MouseEvent event) {
         if (event.getSource() instanceof ImageView) {
             ImageView icon = (ImageView) event.getSource();
@@ -92,8 +79,56 @@ public class DashboardFormController {
         }
     }
 
-    public void navigate(MouseEvent mouseEvent) {
+    public void playMouseExitAnimation(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1);
+            scaleT.setToY(1);
+            scaleT.play();
 
+            icon.setEffect(null);
+            lblMenu.setText("Welcome");
+            lblDescription.setText("Please select one of above main operations to proceed");
+        }
+    }
+
+    public void navigate(MouseEvent event) throws IOException {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+
+            Parent root = null;
+
+            switch (icon.getId()) {
+
+                case "imgStudent":
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageItemForm.fxml"));
+                    break;
+                case "imgRoom":
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageReportForm.fxml"));
+                    break;
+                case "imgReserve":
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageItemForm.fxml"));
+                    break;
+                case "imgMoney":
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageReportForm.fxml"));
+                    break;
+
+            }
+
+            if (root != null) {
+                Scene subScene = new Scene(root);
+                Stage primaryStage = (Stage) this.root.getScene().getWindow();
+                primaryStage.setScene(subScene);
+                primaryStage.centerOnScreen();
+
+                TranslateTransition tt = new TranslateTransition(Duration.millis(350), subScene.getRoot());
+                tt.setFromX(-subScene.getWidth());
+                tt.setToX(0);
+                tt.play();
+
+            }
+        }
     }
 
     public void navigateToUser(MouseEvent mouseEvent) {
