@@ -27,6 +27,7 @@
         <SOURCES />
       </library>
     </orderEntry>
+    <orderEntry type="library" name="jfoenix-8.0.10" level="project" />
     <orderEntry type="library" name="fontawesomefx-8.5" level="project" />
   </component>
 </module>

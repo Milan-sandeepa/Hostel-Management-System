@@ -1,5 +1,6 @@
 package lk.ijse.hostel.controller;
 
+import javafx.animation.ScaleTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,10 +8,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import lk.ijse.hostel.util.SetNavigation;
 
 import java.io.IOException;
@@ -21,6 +25,10 @@ public class DashboardFormController {
     public AnchorPane root;
     public Label lblMenu;
     public Label lblDescription;
+    public ImageView imgStudent;
+    public ImageView imgRoom;
+    public ImageView imgReserve;
+    public ImageView imgMoney;
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
@@ -33,15 +41,66 @@ public class DashboardFormController {
         }
     }
 
-    public void playMouseExitAnimation(MouseEvent mouseEvent) {
+    public void playMouseExitAnimation(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1);
+            scaleT.setToY(1);
+            scaleT.play();
 
+            icon.setEffect(null);
+            lblMenu.setText("Welcome");
+            lblDescription.setText("Please select one of above main operations to proceed");
+        }
     }
 
-    public void playMouseEnterAnimation(MouseEvent mouseEvent) {
+    public void playMouseEnterAnimation(MouseEvent event) {
+        if (event.getSource() instanceof ImageView) {
+            ImageView icon = (ImageView) event.getSource();
 
+            switch (icon.getId()) {
+                case "imgStudent":
+                    lblMenu.setText("Manage Students");
+                    lblDescription.setText("Click to add, edit, delete, search or view items");
+                    break;
+                case "imgRoom":
+                    lblMenu.setText("Manage Rooms");
+                    lblDescription.setText("Click here if you want to see a orders reports");
+                    break;
+                case "imgReserve":
+                    lblMenu.setText("Reserve Room");
+                    lblDescription.setText("Click here if you want to see a orders reports");
+                    break;
+                case "imgMoney":
+                    lblMenu.setText("Pending KeyMoney");
+                    lblDescription.setText("Click here if you want to see a orders reports");
+                    break;
+            }
+
+            ScaleTransition scaleT = new ScaleTransition(Duration.millis(200), icon);
+            scaleT.setToX(1.2);
+            scaleT.setToY(1.2);
+            scaleT.play();
+
+            DropShadow glow = new DropShadow();
+            glow.setColor(Color.CORNFLOWERBLUE);
+            glow.setWidth(20);
+            glow.setHeight(20);
+            glow.setRadius(20);
+            icon.setEffect(glow);
+        }
     }
 
     public void navigate(MouseEvent mouseEvent) {
+
+    }
+
+    public void navigateToUser(MouseEvent mouseEvent) {
+
+    }
+
+    public void navigateToHome(MouseEvent mouseEvent) {
 
     }
 }
