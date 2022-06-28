@@ -102,7 +102,7 @@ public class DashboardFormController {
             switch (icon.getId()) {
 
                 case "imgStudent":
-                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageItemForm.fxml"));
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageStudentForm.fxml"));
                     break;
                 case "imgRoom":
                     root = FXMLLoader.load(this.getClass().getResource("../view/ManageReportForm.fxml"));

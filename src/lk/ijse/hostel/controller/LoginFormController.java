@@ -37,7 +37,7 @@ public class LoginFormController {
         String psw=txtPassword.getText();
 
         if (uname.equalsIgnoreCase(userBO.getUserName()) & psw.equalsIgnoreCase(userBO.getPassWord())){
-            SetNavigation.setUI("DashboardForm","Dashboard",this.context);
+            SetNavigation.setUI("DashboardForm","DashboardForm",this.context);
         }else {
             lblError.setText("Enter Correct Login Details");
         }
