@@ -8,6 +8,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -54,7 +55,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public boolean save(User entity) {
+    public boolean add(User entity) {
         return false;
     }
 
@@ -65,6 +66,16 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean delete(String s) {
+        return false;
+    }
+
+    @Override
+    public String generateNewID() throws SQLException, ClassNotFoundException {
+        return null;
+    }
+
+    @Override
+    public boolean exist(String s) throws SQLException, ClassNotFoundException {
         return false;
     }
 }

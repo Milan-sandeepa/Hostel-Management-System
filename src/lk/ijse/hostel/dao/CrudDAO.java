@@ -5,15 +5,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public interface CrudDAO <T,ID> extends SuperDAO{
-    public List<T> getAll();
+    public List<T> getAll()throws SQLException, ClassNotFoundException;
 
-    public T get(ID id);
+    public T get(ID id)throws SQLException, ClassNotFoundException;
 
-    public List<T> search(ID id);
+    public List<T> search(ID id)throws SQLException, ClassNotFoundException;
 
-    public boolean save(T entity);
+    public boolean add(T entity)throws SQLException, ClassNotFoundException;
 
-    public boolean update(T entity);
+    public boolean update(T entity)throws SQLException, ClassNotFoundException;
 
-    public boolean delete(ID id);
+    public boolean delete(ID id)throws SQLException, ClassNotFoundException;
+
+    String generateNewID() throws SQLException, ClassNotFoundException;
+
+    boolean exist(ID id) throws SQLException, ClassNotFoundException;
 }
