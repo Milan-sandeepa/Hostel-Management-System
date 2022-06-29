@@ -105,10 +105,10 @@ public class DashboardFormController {
                     root = FXMLLoader.load(this.getClass().getResource("../view/ManageStudentForm.fxml"));
                     break;
                 case "imgRoom":
-                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageReportForm.fxml"));
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageRoomForm.fxml"));
                     break;
                 case "imgReserve":
-                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageItemForm.fxml"));
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ReserveRoomForm.fxml"));
                     break;
                 case "imgMoney":
                     root = FXMLLoader.load(this.getClass().getResource("../view/ManageReportForm.fxml"));

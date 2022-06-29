@@ -2,18 +2,23 @@ package lk.ijse.hostel.entity;
 
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
+@Entity(name = "reservation")
 public class Reservation {
     @Id
     private String resId;
-    private LocalDate date;
+    @Column(columnDefinition = "DATE")
+    private String date;
+
+    @ManyToOne(cascade = CascadeType.ALL)
     private Student student;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    private Room room;
 
 }

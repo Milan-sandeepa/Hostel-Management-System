@@ -10,7 +10,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Entity
+@Entity(name = "student")
 public class Student {
     @Id
     private String student_id;
@@ -18,7 +18,11 @@ public class Student {
     @Column(columnDefinition = "TEXT")
     private String address;
     private String ContactNo;
-    private LocalDate dob;
+    @Column(columnDefinition = "DATE")
+    private String dob;
     private String gender;
+
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    private List<Reservation> resList = new ArrayList<>();
 
 }

@@ -1,5 +1,6 @@
 package lk.ijse.hostel.util;
 
+import lk.ijse.hostel.entity.Reservation;
 import lk.ijse.hostel.entity.Room;
 import lk.ijse.hostel.entity.Student;
 import lk.ijse.hostel.entity.User;
@@ -27,7 +28,8 @@ public class FactoryConfiguration {
                 .addProperties(properties)
                 .addAnnotatedClass(User.class)
                 .addAnnotatedClass(Room.class)
-                .addAnnotatedClass(Student.class);
+                .addAnnotatedClass(Student.class)
+                .addAnnotatedClass(Reservation.class);
         sessionFactory = configuration.buildSessionFactory();
     }
 

@@ -10,33 +10,25 @@ import javafx.scene.control.TableView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import lk.ijse.hostel.entity.Student;
-import lk.ijse.hostel.util.FactoryConfiguration;
 import lk.ijse.hostel.util.SetNavigation;
-import org.hibernate.Session;
-import org.hibernate.Transaction;
 
 import java.io.IOException;
 import java.util.Optional;
 
-public class ManageStudentFormController {
+public class ManageRoomFormController {
     public AnchorPane root;
     public JFXButton btnSave;
     public JFXButton btnUpdate;
     public JFXButton btnDelete;
-    public JFXTextField txtStudentId;
-    public JFXTextField txtStudentName;
-    public JFXTextField txtStudentAddress;
-    public JFXTextField txtStudentContact;
-    public JFXTextField txtStudentBirthDay;
-    public JFXTextField txtStudentGender;
-    public TableView tblStudent;
+    public JFXTextField txtRoomId;
+    public JFXTextField txtRoomType;
+    public JFXTextField txtRoomKeyMoney;
+    public JFXTextField txtRoomQty;
+    public TableView tblRoom;
     public TableColumn colId;
-    public TableColumn colName;
-    public TableColumn colAddress;
-    public TableColumn colContact;
-    public TableColumn colDay;
-    public TableColumn colGender;
+    public TableColumn colType;
+    public TableColumn colKeyMoney;
+    public TableColumn colQty;
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
