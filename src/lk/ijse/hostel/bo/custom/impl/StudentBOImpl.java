@@ -31,7 +31,7 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public boolean ifStudentExist(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return studentDAO.exist(id);
     }
 
     @Override
