@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 public class StudentDTO {
     private String id;
-    private String fullName;
+    private String name;
     private String address;
     private String contactNo;
     private String dob;

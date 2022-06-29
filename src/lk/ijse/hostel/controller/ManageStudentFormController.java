@@ -58,7 +58,6 @@ public class ManageStudentFormController {
     private final StudentBO studentBO = (StudentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.STUDENT);
 
 
-
     public void initialize(){
         txtStudentId.setText(generateNewId());
         txtStudentId.setDisable(true);
@@ -91,7 +90,7 @@ public class ManageStudentFormController {
 
         loadAllStudents();
         btnSave.setDisable(false);
-        btnDelete.setDisable(true);
+        btnDelete.setDisable(false);
     }
 
     private void loadAllStudents() {
@@ -99,7 +98,7 @@ public class ManageStudentFormController {
         try {
             ArrayList<StudentDTO> allStudent = studentBO.getAllStudent();
             for (StudentDTO student : allStudent) {
-                tblStudent.getItems().add(new StudentTM(student.getId(),student.getFullName(),student.getAddress(),student.getContactNo(),student.getDob(),student.getGender()));
+                tblStudent.getItems().add(new StudentTM(student.getId(),student.getName(),student.getAddress(),student.getContactNo(),student.getDob(),student.getGender()));
             }
         } catch (SQLException e) {
             new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
@@ -124,7 +123,7 @@ public class ManageStudentFormController {
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
-        try {
+
             String id=txtStudentId.getText();
             String name=txtStudentName.getText();
             String address=txtStudentAddress.getText();
@@ -132,6 +131,7 @@ public class ManageStudentFormController {
             String dob=String.valueOf(txtDob.getValue());
             String gender=cmbSex.getValue().toString();
 
+        try {
             if (existStudent(id)) {
                 new Alert(Alert.AlertType.ERROR, id + " already exists").show();
             }else{
@@ -140,6 +140,7 @@ public class ManageStudentFormController {
                 txtStudentId.setText(generateNewId());
                 StudentDTO studentDTO = new StudentDTO(id, name, address, contact, dob, gender);
                 studentBO.addStudent(studentDTO);
+                tblStudent.refresh();
                 btnSave.setDisable(true);
             }
         } catch (SQLException e) {
@@ -149,18 +150,74 @@ public class ManageStudentFormController {
         }
         clear();
         txtStudentId.setText(generateNewId());
-    }
-
-    private boolean existStudent(String id) throws SQLException, ClassNotFoundException {
-        return studentBO.ifStudentExist(id);
+        tblStudent.refresh();
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        String id=txtStudentId.getText();
+        String name=txtStudentName.getText();
+        String address=txtStudentAddress.getText();
+        String contact=txtStudentContact.getText();
+        String dob=String.valueOf(txtDob.getValue());
+        String gender=cmbSex.getValue().toString();
 
+        try {
+            if (!existStudent(id)) {
+                new Alert(Alert.AlertType.ERROR, "There is no such student associated with the id " + id).show();
+            }else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Updated...!").show();
+                clear();
+
+                StudentDTO studentDTO = new StudentDTO(id, name, address, contact, dob, gender);
+                studentBO.updateStudent(studentDTO);
+                clear();
+                btnUpdate.setDisable(true);
+                btnSave.setDisable(true);
+
+                StudentTM selectedStudent = tblStudent.getSelectionModel().getSelectedItem();
+                selectedStudent.setName(name);
+                selectedStudent.setAddress(address);
+                selectedStudent.setContact(contact);
+                selectedStudent.setDob(dob);
+                selectedStudent.setGender(gender);
+                tblStudent.refresh();
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to update the customer " + id + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
+        String id = tblStudent.getSelectionModel().getSelectedItem().getId();
+        try {
+            if (!existStudent(id)) {
+                new Alert(Alert.AlertType.ERROR, "There is no such student associated with the id " + id).show();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure Delete Student ?",ButtonType.YES,ButtonType.NO);
 
+                Optional<ButtonType> buttonType = alert.showAndWait();
+
+                if (buttonType.get().equals(ButtonType.YES)){
+                    studentBO.deleteStudent(id);
+                    tblStudent.getItems().remove(tblStudent.getSelectionModel().getSelectedItem());
+                    tblStudent.getSelectionModel().clearSelection();
+                    clear();
+                    txtStudentId.setText(generateNewId());
+                    btnSave.setDisable(true);
+                    btnDelete.setDisable(true);
+                    btnUpdate.setDisable(true);
+                    new Alert(Alert.AlertType.CONFIRMATION, "Student Details Deleted...!").show();
+                }
+
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to delete the student " + id).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     private String generateNewId() {
@@ -186,6 +243,10 @@ public class ManageStudentFormController {
         List<StudentTM> tempStudentList = new ArrayList<>(tblStudent.getItems());
         Collections.sort(tempStudentList);
         return tempStudentList.get(tempStudentList.size() - 1).getId();
+    }
+
+    private boolean existStudent(String id) throws SQLException, ClassNotFoundException {
+        return studentBO.ifStudentExist(id);
     }
 
     public void textFields_Key_Released(KeyEvent keyEvent) {

@@ -26,12 +26,26 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public boolean addStudent(StudentDTO studentDTO) throws SQLException, ClassNotFoundException {
-        return studentDAO.add(new Student(studentDTO.getId(),studentDTO.getFullName(),studentDTO.getAddress(),studentDTO.getContactNo(),studentDTO.getDob(),studentDTO.getGender()));
+        return studentDAO.add(new Student(
+                studentDTO.getId(),
+                studentDTO.getName(),
+                studentDTO.getAddress(),
+                studentDTO.getContactNo(),
+                studentDTO.getDob(),
+                studentDTO.getGender()
+        ));
     }
 
     @Override
     public boolean updateStudent(StudentDTO studentDTO) throws SQLException, ClassNotFoundException {
-        return false;
+        return studentDAO.update(new Student(
+                studentDTO.getId(),
+                studentDTO.getName(),
+                studentDTO.getAddress(),
+                studentDTO.getContactNo(),
+                studentDTO.getDob(),
+                studentDTO.getGender()
+        ));
     }
 
     @Override
@@ -41,7 +55,7 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public boolean deleteStudent(String id) throws SQLException, ClassNotFoundException {
-        return false;
+        return studentDAO.delete(id);
     }
 
     @Override
