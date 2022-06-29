@@ -1,6 +1,5 @@
 package lk.ijse.hostel.dao.custom.impl;
 
-import lk.ijse.hostel.dao.SuperDAO;
 import lk.ijse.hostel.dao.custom.UserDAO;
 import lk.ijse.hostel.entity.User;
 import lk.ijse.hostel.util.FactoryConfiguration;
@@ -9,6 +8,7 @@ import org.hibernate.Transaction;
 import org.hibernate.query.Query;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserDAOImpl implements UserDAO {
@@ -40,7 +40,7 @@ public class UserDAOImpl implements UserDAO {
     }
 
     @Override
-    public List<User> getAll() {
+    public ArrayList<User> getAll() {
         return null;
     }
 

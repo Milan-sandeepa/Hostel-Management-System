@@ -13,7 +13,7 @@ import java.util.List;
 
 public class StudentDAOImpl implements StudentDAO {
     @Override
-    public List<Student> getAll() {
+    public ArrayList<Student> getAll() {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
         List<Student> list = session.createQuery("FROM student ").list();
@@ -79,7 +79,7 @@ public class StudentDAOImpl implements StudentDAO {
     public String generateNewID() throws SQLException, ClassNotFoundException {
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createSQLQuery("SELECT id FROM student ORDER BY id DESC LIMIT 1");
+        Query query = session.createSQLQuery("SELECT student_id FROM student ORDER BY student_id DESC LIMIT 1");
         String s = (String) query.uniqueResult();
         transaction.commit();
         session.close();

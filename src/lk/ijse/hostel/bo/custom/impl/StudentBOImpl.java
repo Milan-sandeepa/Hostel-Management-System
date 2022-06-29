@@ -16,7 +16,12 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public ArrayList<StudentDTO> getAllStudent() throws SQLException, ClassNotFoundException {
-        return null;
+        ArrayList<StudentDTO> allStudent = new ArrayList<>();
+        ArrayList<Student> all = studentDAO.getAll();
+        for (Student list : all) {
+            allStudent.add(new StudentDTO(list.getStudent_id(),list.getName(),list.getAddress(),list.getContactNo(),list.getDob(),list.getGender()));
+        }
+        return allStudent;
     }
 
     @Override
@@ -41,6 +46,6 @@ public class StudentBOImpl implements StudentBO {
 
     @Override
     public String generateNewID() throws SQLException, ClassNotFoundException {
-        return null;
+        return studentDAO.generateNewID();
     }
 }

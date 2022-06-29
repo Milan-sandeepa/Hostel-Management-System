@@ -1,8 +1,11 @@
 package lk.ijse.hostel.controller;
 
 import com.jfoenix.controls.JFXButton;
+import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXDatePicker;
 import com.jfoenix.controls.JFXTextField;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -41,9 +44,10 @@ public class ManageStudentFormController {
     public JFXTextField txtStudentName;
     public JFXTextField txtStudentAddress;
     public JFXTextField txtStudentContact;
-    public JFXTextField txtStudentGender;
     public JFXDatePicker txtDob;
-    public TableView<Student> tblStudent;
+    public JFXComboBox cmbSex;
+
+    public TableView<StudentTM> tblStudent;
     public TableColumn colId;
     public TableColumn colName;
     public TableColumn colAddress;
@@ -54,10 +58,14 @@ public class ManageStudentFormController {
     private final StudentBO studentBO = (StudentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.STUDENT);
 
 
+
     public void initialize(){
         txtStudentId.setText(generateNewId());
         txtStudentId.setDisable(true);
         btnUpdate.setDisable(true);
+
+        ObservableList sex = FXCollections.observableArrayList("Male","Female");
+        cmbSex.getItems().addAll(sex);
 
         colId.setCellValueFactory(new PropertyValueFactory<>("id"));
         colName.setCellValueFactory(new PropertyValueFactory<>("name"));
@@ -66,21 +74,38 @@ public class ManageStudentFormController {
         colDay.setCellValueFactory(new PropertyValueFactory<>("dob"));
         colGender.setCellValueFactory(new PropertyValueFactory<>("gender"));
 
+        tblStudent.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                txtStudentId.setText(newValue.getId());
+                txtStudentName.setText(newValue.getName());
+                txtStudentAddress.setText(newValue.getAddress());
+                txtStudentContact.setText(newValue.getContact());
+                txtDob.setValue(LocalDate.parse(newValue.getDob()));
+                cmbSex.setValue(String.valueOf(newValue.getGender()));
+                txtStudentId.setDisable(true);
+                btnSave.setDisable(true);
+                btnUpdate.setDisable(false);
+                btnDelete.setDisable(false);
+            }
+        });
+
         loadAllStudents();
-        btnSave.setDisable(true);
+        btnSave.setDisable(false);
         btnDelete.setDisable(true);
     }
 
     private void loadAllStudents() {
-
-    }
-
-    private String generateNewId() {
-        return null;
-    }
-
-    private String getLastStudentId() {
-        return null;
+        tblStudent.getItems().clear();
+        try {
+            ArrayList<StudentDTO> allStudent = studentBO.getAllStudent();
+            for (StudentDTO student : allStudent) {
+                tblStudent.getItems().add(new StudentTM(student.getId(),student.getFullName(),student.getAddress(),student.getContactNo(),student.getDob(),student.getGender()));
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            new Alert(Alert.AlertType.ERROR, e.getMessage()).show();
+        }
     }
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
@@ -105,7 +130,7 @@ public class ManageStudentFormController {
             String address=txtStudentAddress.getText();
             String contact=txtStudentContact.getText();
             String dob=String.valueOf(txtDob.getValue());
-            String gender=txtStudentGender.getText();
+            String gender=cmbSex.getValue().toString();
 
             if (existStudent(id)) {
                 new Alert(Alert.AlertType.ERROR, id + " already exists").show();
@@ -138,7 +163,36 @@ public class ManageStudentFormController {
 
     }
 
+    private String generateNewId() {
+        try {
+            return studentBO.generateNewID();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        if (tblStudent.getItems().isEmpty()) {
+            return "S001";
+        } else {
+            String id = getLastStudentId();
+            int newStudentId = Integer.parseInt(id.replace("S", "")) + 1;
+            return String.format("S%03d", newStudentId);
+        }
+    }
+
+    private String getLastStudentId() {
+        List<StudentTM> tempStudentList = new ArrayList<>(tblStudent.getItems());
+        Collections.sort(tempStudentList);
+        return tempStudentList.get(tempStudentList.size() - 1).getId();
+    }
+
     public void textFields_Key_Released(KeyEvent keyEvent) {
+
+    }
+
+    private void clear() {
 
     }
 }
