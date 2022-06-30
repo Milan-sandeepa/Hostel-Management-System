@@ -1,5 +1,6 @@
 package lk.ijse.hostel.bo;
 
+import lk.ijse.hostel.bo.custom.impl.RoomBOImpl;
 import lk.ijse.hostel.bo.custom.impl.StudentBOImpl;
 import lk.ijse.hostel.bo.custom.impl.UserBOImpl;
 
@@ -23,7 +24,7 @@ public class BOFactory {
             case STUDENT:
                 return new StudentBOImpl();
             case ROOM:
-                return null;
+                return new RoomBOImpl();
             case RESERVE:
                 return null;
             case QUERYDAO:

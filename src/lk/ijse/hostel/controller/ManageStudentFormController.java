@@ -90,7 +90,7 @@ public class ManageStudentFormController {
 
         loadAllStudents();
         btnSave.setDisable(false);
-        btnDelete.setDisable(false);
+        btnDelete.setDisable(true);
     }
 
     private void loadAllStudents() {
@@ -254,6 +254,10 @@ public class ManageStudentFormController {
     }
 
     private void clear() {
+        txtStudentId.clear();
+        txtStudentName.clear();
+        txtStudentAddress.clear();
+        txtStudentContact.clear();
 
     }
 }
