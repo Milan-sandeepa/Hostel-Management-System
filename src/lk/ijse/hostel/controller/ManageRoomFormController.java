@@ -163,7 +163,37 @@ public class ManageRoomFormController {
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
+        String id=txtRoomId.getText();
+        String roomType=cmbRoomType.getValue().toString();
+        String keyMoney=txtRoomKeyMoney.getText();
+        int qty= Integer.parseInt(txtRoomQty.getText());
 
+        try {
+            if (!existRoom(id)) {
+                new Alert(Alert.AlertType.ERROR, "There is no such room associated with the id " + id).show();
+            }else {
+                new Alert(Alert.AlertType.CONFIRMATION, "Updated...!").show();
+                clear();
+
+                RoomDTO roomDTO = new RoomDTO(id, roomType, keyMoney, qty);
+                roomBO.updateRoom(roomDTO);
+                clear();
+                btnUpdate.setDisable(true);
+                btnSave.setDisable(true);
+
+                RoomTM selectedRoom = tblRoom.getSelectionModel().getSelectedItem();
+                selectedRoom.setRoom_Type_id(id);
+                selectedRoom.setType(roomType);
+                selectedRoom.setKey_money(keyMoney);
+                selectedRoom.setQty(qty);
+                tblRoom.refresh();
+            }
+
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to update the room " + id + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
