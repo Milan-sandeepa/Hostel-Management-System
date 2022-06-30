@@ -1,6 +1,7 @@
 package lk.ijse.hostel.entity;
 
 import lombok.*;
+import org.hibernate.annotations.CreationTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -12,8 +13,9 @@ import java.time.LocalDate;
 public class Reservation {
     @Id
     private String resId;
-    @Column(columnDefinition = "DATE")
-    private String date;
+    @CreationTimestamp
+    private LocalDate date;
+    private String status;
 
     @ManyToOne(cascade = CascadeType.ALL)
     private Student student;

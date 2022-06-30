@@ -1,14 +1,114 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="lk.ijse.hostel.controller.ReserveRoomFormController"
-            prefHeight="400.0" prefWidth="600.0">
-
+<AnchorPane fx:id="root" prefHeight="763.0" prefWidth="878.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hostel.controller.ReserveRoomFormController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="878.0">
+         <fill>
+            <LinearGradient endX="0.40244585511575803" endY="0.883495145631068" startY="0.13106796116504854">
+               <stops>
+                  <Stop color="#4859cf" />
+                  <Stop color="#54a0ff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label layoutX="301.0" layoutY="27.0" text="Make Reservation">
+         <font>
+            <Font name="Garamond Bold" size="35.0" />
+         </font>
+      </Label>
+      <JFXButton id="btnSave" fx:id="btnSave" buttonType="RAISED" layoutX="717.0" layoutY="362.0" onAction="#btnAdd_OnAction" prefHeight="39.0" prefWidth="143.0" style="-fx-cursor: hand; -fx-background-color: #4cd137;" text="Add">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <FontAwesomeIconView fill="#fcfcfc" glyphName="SIGN_OUT" layoutX="817.0" layoutY="61.0" onMouseClicked="#signOutPressed" size="40" textAlignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </FontAwesomeIconView>
+      <FontAwesomeIconView fill="#fcfcfc" glyphName="HOME" layoutX="757.0" layoutY="60.0" onMouseClicked="#navigateToHome" size="40" textAlignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </FontAwesomeIconView>
+      <TableView fx:id="tblReserveDetails" layoutX="14.0" layoutY="410.0" prefHeight="279.0" prefWidth="847.0">
+         <columns>
+            <TableColumn fx:id="colRoomCode" prefWidth="106.0" text="Code" />
+            <TableColumn fx:id="colType" prefWidth="137.0" text="Room Type" />
+            <TableColumn fx:id="colKeyMoney" prefWidth="134.0" text="Key Money" />
+            <TableColumn fx:id="colQty" prefWidth="114.0" text="Qty" />
+            <TableColumn fx:id="colTotal" prefWidth="116.0" text="Total" />
+            <TableColumn fx:id="colStatus" prefWidth="135.0" text="Status" />
+            <TableColumn fx:id="colOption" prefWidth="100.0" text="Delete" />
+         </columns>
+      </TableView>
+      <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="738.0" layoutY="96.0" prefHeight="27.0" prefWidth="120.0" text="2022-06-1">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER_RIGHT" layoutX="657.0" layoutY="125.0" prefHeight="30.0" prefWidth="143.0" text="RESERVATION ID : ">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <Label fx:id="lblId" alignment="CENTER_RIGHT" layoutX="802.0" layoutY="125.0" prefHeight="30.0" prefWidth="56.0" text="RE001">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font>
+      </Label>
+      <JFXComboBox fx:id="cmbStudentId" labelFloat="true" layoutX="20.0" layoutY="140.0" prefHeight="38.0" prefWidth="286.0" promptText="Student ID :" styleClass="combo" />
+      <JFXTextField fx:id="txtStudentName" editable="false" labelFloat="true" layoutX="20.0" layoutY="203.0" prefHeight="39.0" prefWidth="286.0" promptText="Student Name :">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXComboBox fx:id="cmbRoomId" labelFloat="true" layoutX="363.0" layoutY="140.0" prefHeight="38.0" prefWidth="286.0" promptText="Room ID :" styleClass="combo" />
+      <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="20.0" layoutY="267.0" prefHeight="39.0" prefWidth="286.0" promptText="Key Money :">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtRoomType" editable="false" labelFloat="true" layoutX="363.0" layoutY="203.0" prefHeight="39.0" prefWidth="286.0" promptText="Room Type :">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtQty" labelFloat="true" layoutX="364.0" layoutY="325.0" onKeyReleased="#textFields_Key_Released" prefHeight="39.0" prefWidth="286.0" promptText="Qty :">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXTextField>
+      <Label fx:id="lblTotal" layoutX="450.0" layoutY="709.0" text="0.00" textFill="#f50b0b">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <Label layoutX="306.0" layoutY="707.0" text="TOTAL Rs:" textFill="#f50b0b">
+         <font>
+            <Font name="System Bold" size="28.0" />
+         </font>
+      </Label>
+      <JFXButton id="btnSave" fx:id="btnReserveRoom" buttonType="RAISED" layoutX="726.0" layoutY="708.0" onAction="#btnReserveRoom_OnAction" prefHeight="39.0" prefWidth="136.0" style="-fx-cursor: hand; -fx-background-color: #ff6b6b; -fx-text-fill: black;" text="Reserve">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXButton>
+      <JFXComboBox fx:id="cmbStatus" labelFloat="true" layoutX="363.0" layoutY="275.0" prefHeight="31.0" prefWidth="286.0" promptText="Select Paid Or Not" />
+   </children>
 </AnchorPane>

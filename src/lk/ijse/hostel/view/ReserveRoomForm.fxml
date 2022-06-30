@@ -50,10 +50,11 @@
          <columns>
             <TableColumn fx:id="colRoomCode" prefWidth="106.0" text="Code" />
             <TableColumn fx:id="colType" prefWidth="137.0" text="Room Type" />
-            <TableColumn fx:id="colKeyMoney" prefWidth="161.0" text="Key Money" />
-            <TableColumn fx:id="colQty" prefWidth="126.0" text="Qty" />
-            <TableColumn fx:id="colTotal" prefWidth="161.0" text="Total" />
-            <TableColumn fx:id="colOption" prefWidth="161.0" text="Delete" />
+            <TableColumn fx:id="colKeyMoney" prefWidth="134.0" text="Key Money" />
+            <TableColumn fx:id="colQty" prefWidth="114.0" text="Qty" />
+            <TableColumn fx:id="colTotal" prefWidth="116.0" text="Total" />
+            <TableColumn fx:id="colStatus" prefWidth="135.0" text="Status" />
+            <TableColumn fx:id="colOption" prefWidth="100.0" text="Delete" />
          </columns>
       </TableView>
       <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="738.0" layoutY="96.0" prefHeight="27.0" prefWidth="120.0" text="2022-06-1">
@@ -72,18 +73,18 @@
          </font>
       </Label>
       <JFXComboBox fx:id="cmbStudentId" labelFloat="true" layoutX="20.0" layoutY="140.0" prefHeight="38.0" prefWidth="286.0" promptText="Student ID :" styleClass="combo" />
-      <JFXTextField fx:id="txtStudentName" labelFloat="true" layoutX="20.0" layoutY="203.0" prefHeight="39.0" prefWidth="286.0" promptText="Student Name :">
+      <JFXTextField fx:id="txtStudentName" editable="false" labelFloat="true" layoutX="20.0" layoutY="203.0" prefHeight="39.0" prefWidth="286.0" promptText="Student Name :">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXTextField>
       <JFXComboBox fx:id="cmbRoomId" labelFloat="true" layoutX="363.0" layoutY="140.0" prefHeight="38.0" prefWidth="286.0" promptText="Room ID :" styleClass="combo" />
-      <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="363.0" layoutY="270.0" prefHeight="39.0" prefWidth="286.0" promptText="Key Money :">
+      <JFXTextField fx:id="txtKeyMoney" labelFloat="true" layoutX="20.0" layoutY="267.0" prefHeight="39.0" prefWidth="286.0" promptText="Key Money :">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXTextField>
-      <JFXTextField fx:id="txtRoomType" labelFloat="true" layoutX="363.0" layoutY="203.0" prefHeight="39.0" prefWidth="286.0" promptText="Room Type :">
+      <JFXTextField fx:id="txtRoomType" editable="false" labelFloat="true" layoutX="363.0" layoutY="203.0" prefHeight="39.0" prefWidth="286.0" promptText="Room Type :">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -108,5 +109,6 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
+      <JFXComboBox fx:id="cmbStatus" labelFloat="true" layoutX="363.0" layoutY="275.0" prefHeight="31.0" prefWidth="286.0" promptText="Select Paid Or Not" />
    </children>
 </AnchorPane>

@@ -1,5 +1,6 @@
 package lk.ijse.hostel.dao;
 
+import lk.ijse.hostel.dao.custom.impl.ReservationDAOImpl;
 import lk.ijse.hostel.dao.custom.impl.RoomDAOImpl;
 import lk.ijse.hostel.dao.custom.impl.StudentDAOImpl;
 import lk.ijse.hostel.dao.custom.impl.UserDAOImpl;
@@ -27,7 +28,7 @@ public class DAOFactory {
             case ROOM:
                 return new RoomDAOImpl();
             case RESERVE:
-                return null;
+                return new ReservationDAOImpl();
             case QUERYDAO:
                 return null;
             default:
