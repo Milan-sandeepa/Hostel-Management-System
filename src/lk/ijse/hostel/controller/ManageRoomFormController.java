@@ -105,11 +105,11 @@ public class ManageRoomFormController {
 
 
         if (tblRoom.getItems().isEmpty()) {
-            return "R001";
+            return "RM-001";
         } else {
             String id = getLastRoomId();
-            int newStudentId = Integer.parseInt(id.replace("R", "")) + 1;
-            return String.format("R%03d", newStudentId);
+            int newStudentId = Integer.parseInt(id.replace("RM-", "")) + 1;
+            return String.format("RM-%03d", newStudentId);
         }
     }
 

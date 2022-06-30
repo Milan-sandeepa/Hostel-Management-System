@@ -86,10 +86,10 @@ public class RoomDAOImpl implements RoomDAO {
         transaction.commit();
         session.close();
         if (s!=null) {
-            int newCourseId = Integer.parseInt(s.replace("R", "")) + 1;
-            return String.format("R%03d", newCourseId);
+            int newCourseId = Integer.parseInt(s.replace("RM-", "")) + 1;
+            return String.format("RM-%03d", newCourseId);
         }
-        return "R001";
+        return "RM-001";
     }
 
     @Override
