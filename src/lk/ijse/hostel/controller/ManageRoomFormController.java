@@ -134,7 +134,7 @@ public class ManageRoomFormController {
         SetNavigation.setUI("DashboardForm","Home",this.root);
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    public void btnSaveOnAction(ActionEvent actionEvent) throws IOException {
         String id=txtRoomId.getText();
         String roomType=cmbRoomType.getValue().toString();
         String keyMoney=txtRoomKeyMoney.getText();
@@ -160,6 +160,7 @@ public class ManageRoomFormController {
         clear();
         txtRoomId.setText(generateNewId());
         tblRoom.refresh();
+        SetNavigation.setUI("ManageRoomForm","ManageRoom",this.root);
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
@@ -197,7 +198,33 @@ public class ManageRoomFormController {
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {
+        String id = tblRoom.getSelectionModel().getSelectedItem().getRoom_Type_id();
+        try {
+            if (!existRoom(id)) {
+                new Alert(Alert.AlertType.ERROR, "There is no such room associated with the id " + id).show();
+            }else{
+                Alert alert = new Alert(Alert.AlertType.CONFIRMATION, "Are You Sure Delete Room ?",ButtonType.YES,ButtonType.NO);
 
+                Optional<ButtonType> buttonType = alert.showAndWait();
+
+                if (buttonType.get().equals(ButtonType.YES)){
+                    roomBO.deleteRoom(id);
+                    tblRoom.getItems().remove(tblRoom.getSelectionModel().getSelectedItem());
+                    tblRoom.getSelectionModel().clearSelection();
+                    clear();
+                    txtRoomId.setText(generateNewId());
+                    btnSave.setDisable(true);
+                    btnDelete.setDisable(true);
+                    btnUpdate.setDisable(true);
+                    new Alert(Alert.AlertType.CONFIRMATION, "Room Details Deleted...!").show();
+                }
+
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to delete the Room " + id).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void textFields_Key_Released(KeyEvent keyEvent) {

@@ -122,7 +122,7 @@ public class ManageStudentFormController {
         SetNavigation.setUI("DashboardForm","Home",this.root);
     }
 
-    public void btnSaveOnAction(ActionEvent actionEvent) {
+    public void btnSaveOnAction(ActionEvent actionEvent) throws IOException {
 
             String id=txtStudentId.getText();
             String name=txtStudentName.getText();
@@ -151,6 +151,7 @@ public class ManageStudentFormController {
         clear();
         txtStudentId.setText(generateNewId());
         tblStudent.refresh();
+        SetNavigation.setUI("ManageStudentForm","ManageStudent",this.root);
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
