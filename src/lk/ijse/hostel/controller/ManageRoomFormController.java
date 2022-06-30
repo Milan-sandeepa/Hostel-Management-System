@@ -25,7 +25,10 @@ import lk.ijse.hostel.view.tm.StudentTM;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
 public class ManageRoomFormController {
@@ -58,6 +61,18 @@ public class ManageRoomFormController {
         colKeyMoney.setCellValueFactory(new PropertyValueFactory<>("key_money"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
 
+        tblRoom.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue != null) {
+                txtRoomId.setText(newValue.getRoom_Type_id());
+                cmbRoomType.setValue(String.valueOf(newValue.getType()));
+                txtRoomKeyMoney.setText(newValue.getKey_money());
+                txtRoomQty.setText(String.valueOf(newValue.getQty()));
+                txtRoomId.setDisable(true);
+                btnSave.setDisable(true);
+                btnUpdate.setDisable(false);
+                btnDelete.setDisable(false);
+            }
+        });
 
         loadAllRooms();
         btnSave.setDisable(false);
@@ -80,7 +95,28 @@ public class ManageRoomFormController {
     }
 
     private String generateNewId() {
-        return null;
+        try {
+            return roomBO.generateNewID();
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+
+        if (tblRoom.getItems().isEmpty()) {
+            return "R001";
+        } else {
+            String id = getLastRoomId();
+            int newStudentId = Integer.parseInt(id.replace("R", "")) + 1;
+            return String.format("R%03d", newStudentId);
+        }
+    }
+
+    private String getLastRoomId() {
+        List<RoomTM> tempRoomList = new ArrayList<>(tblRoom.getItems());
+        Collections.sort(tempRoomList);
+        return tempRoomList.get(tempRoomList.size() - 1).getRoom_Type_id();
     }
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
