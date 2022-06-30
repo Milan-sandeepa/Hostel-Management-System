@@ -135,7 +135,31 @@ public class ManageRoomFormController {
     }
 
     public void btnSaveOnAction(ActionEvent actionEvent) {
+        String id=txtRoomId.getText();
+        String roomType=cmbRoomType.getValue().toString();
+        String keyMoney=txtRoomKeyMoney.getText();
+        int qty= Integer.parseInt(txtRoomQty.getText());
 
+        try {
+            if (existRoom(id)) {
+                new Alert(Alert.AlertType.ERROR, id + " already exists").show();
+            }else{
+                new Alert(Alert.AlertType.CONFIRMATION,  "Saved...!").show();
+                clear();
+                txtRoomId.setText(generateNewId());
+                RoomDTO roomDTO = new RoomDTO(id, roomType, keyMoney, qty);
+                roomBO.addRoom(roomDTO);
+                tblRoom.refresh();
+                btnSave.setDisable(true);
+            }
+        } catch (SQLException e) {
+            new Alert(Alert.AlertType.ERROR, "Failed to save the Room " + e.getMessage()).show();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        clear();
+        txtRoomId.setText(generateNewId());
+        tblRoom.refresh();
     }
 
     public void btnUpdateOnAction(ActionEvent actionEvent) {
@@ -147,6 +171,14 @@ public class ManageRoomFormController {
     }
 
     public void textFields_Key_Released(KeyEvent keyEvent) {
+
+    }
+
+    private boolean existRoom(String id) throws SQLException, ClassNotFoundException {
+        return roomBO.ifRoomExist(id);
+    }
+
+    private void clear() {
 
     }
 }
