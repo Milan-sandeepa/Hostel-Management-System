@@ -2,6 +2,7 @@ package lk.ijse.hostel.dao.custom.impl;
 
 import lk.ijse.hostel.dao.custom.RoomDAO;
 import lk.ijse.hostel.entity.Room;
+import lk.ijse.hostel.entity.Student;
 import lk.ijse.hostel.util.FactoryConfiguration;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -35,9 +36,18 @@ public class RoomDAOImpl implements RoomDAO {
     }
 
     @Override
-    public List<Room> search(String s) throws SQLException, ClassNotFoundException {
-        return null;
+    public Room search(String id) throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Room room = session.get(Room.class, id);
+
+        transaction.commit();
+        session.close();
+
+        return room;
     }
+
 
     @Override
     public boolean add(Room entity) throws SQLException, ClassNotFoundException {

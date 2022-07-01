@@ -1,6 +1,7 @@
 package lk.ijse.hostel.dao.custom.impl;
 
 import lk.ijse.hostel.dao.custom.StudentDAO;
+import lk.ijse.hostel.entity.Room;
 import lk.ijse.hostel.entity.Student;
 import lk.ijse.hostel.util.FactoryConfiguration;
 import org.hibernate.Session;
@@ -33,8 +34,16 @@ public class StudentDAOImpl implements StudentDAO {
     }
 
     @Override
-    public List<Student> search(String s) {
-        return null;
+    public Student search(String id) throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+
+        Student student = session.get(Student.class, id);
+
+        transaction.commit();
+        session.close();
+
+        return student;
     }
 
     @Override

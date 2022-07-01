@@ -33,7 +33,7 @@ public class ReservationDAOImpl implements ReservationDAO {
     }
 
     @Override
-    public List<Reservation> search(String s) throws SQLException, ClassNotFoundException {
+    public Reservation search(String s) throws SQLException, ClassNotFoundException {
         return null;
     }
 
