@@ -131,8 +131,8 @@ public class DashboardFormController {
         }
     }
 
-    public void navigateToUser(MouseEvent mouseEvent) {
-
+    public void navigateToUser(MouseEvent mouseEvent) throws IOException {
+        SetNavigation.setUI("ManageUserForm","User",this.root);
     }
 
     public void navigateToHome(MouseEvent mouseEvent) {
