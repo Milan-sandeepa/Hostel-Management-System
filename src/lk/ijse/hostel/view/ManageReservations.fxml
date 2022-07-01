@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.paint.LinearGradient?>
+<?import javafx.scene.paint.Stop?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane fx:id="root" prefHeight="763.0" prefWidth="878.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hostel.controller.ManageReservationsController">
+   <children>
+      <Rectangle arcHeight="5.0" arcWidth="5.0" height="90.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="878.0">
+         <fill>
+            <LinearGradient endX="0.40244585511575803" endY="0.883495145631068" startY="0.13106796116504854">
+               <stops>
+                  <Stop color="#4859cf" />
+                  <Stop color="#54a0ff" offset="1.0" />
+               </stops>
+            </LinearGradient>
+         </fill>
+      </Rectangle>
+      <Label layoutX="295.0" layoutY="26.0" text="Reservation Details">
+         <font>
+            <Font name="Garamond Bold" size="35.0" />
+         </font>
+      </Label>
+      <FontAwesomeIconView fill="#fcfcfc" glyphName="SIGN_OUT" layoutX="817.0" layoutY="61.0" onMouseClicked="#signOutPressed" size="40" textAlignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </FontAwesomeIconView>
+      <FontAwesomeIconView fill="#fcfcfc" glyphName="HOME" layoutX="757.0" layoutY="60.0" onMouseClicked="#navigateToHome" size="40" textAlignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </FontAwesomeIconView>
+      <TableView fx:id="tblReservation" layoutX="15.0" layoutY="97.0" prefHeight="659.0" prefWidth="848.0">
+         <columns>
+            <TableColumn fx:id="colResId" prefWidth="172.0" text="Reservation ID" />
+            <TableColumn fx:id="colStudentId" prefWidth="204.0" text="Student ID" />
+            <TableColumn fx:id="colRoomID" prefWidth="271.0" text="RoomID" />
+            <TableColumn fx:id="colStatus" prefWidth="200.0" text="Status" />
+         </columns>
+      </TableView>
+   </children>
+</AnchorPane>

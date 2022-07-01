@@ -16,8 +16,11 @@ import lk.ijse.hostel.bo.BOFactory;
 import lk.ijse.hostel.bo.custom.impl.ReservationBOImpl;
 import lk.ijse.hostel.dao.DAOFactory;
 import lk.ijse.hostel.dao.custom.RoomDAO;
+import lk.ijse.hostel.dto.ReservationDTO;
 import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.dto.StudentDTO;
+import lk.ijse.hostel.entity.Room;
+import lk.ijse.hostel.entity.Student;
 import lk.ijse.hostel.util.SetNavigation;
 import lk.ijse.hostel.view.tm.ReservationDetailsTM;
 import lk.ijse.hostel.view.tm.ReservationTM;
@@ -25,8 +28,13 @@ import lk.ijse.hostel.view.tm.ReservationTM;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
+
+import static java.time.LocalTime.now;
 
 public class ReserveRoomFormController {
     public AnchorPane root;
@@ -266,22 +274,53 @@ public class ReserveRoomFormController {
             } else {
                 tblReserveDetails.getItems().add(new ReservationDetailsTM(roomID,RoomType, keyMoney, qtyWant, total,status ));
             }
-            cmbRoomId.getSelectionModel().clearSelection();
             cmbStudentId.requestFocus();
             calculateTotal();
             enableOrDisableReservationButton();
             cmbStudentId.setDisable(true);
         }else {
-            new Alert(Alert.AlertType.WARNING, "Stock Out...").show();
-            cmbRoomId.getSelectionModel().clearSelection();
+            new Alert(Alert.AlertType.WARNING, "All Rooms Booked...").show();
             txtQty.clear();
             txtRoomType.clear();
 
         }
     }
 
-    public void btnReserveRoom_OnAction(ActionEvent actionEvent) {
+    public void btnReserveRoom_OnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException, IOException {
+        cmbStudentId.setDisable(false);
+        txtStudentName.setDisable(false);
+        txtAvailableRooms.setDisable(false);
+        txtKeyMoney.setDisable(false);
+        txtQty.setDisable(false);
 
+        StudentDTO studentDTO = reservationBO.searchStudent(cmbStudentId.getValue());
+        RoomDTO roomDTO = reservationBO.searchRoom(cmbRoomId.getValue());
+        Student student = new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getAddress(), studentDTO.getContactNo(), studentDTO.getDob(), studentDTO.getGender());
+        Room room = new Room(roomDTO.getRoom_Type_id(), roomDTO.getType(), roomDTO.getKey_money(), roomDTO.getQty() - 1);
+        String stat=cmbStatus.getValue();
+        boolean b = reserveRoom(ReservationID,
+                LocalDate.now(),
+                stat,student,room);
+
+        if (b) {
+            new Alert(Alert.AlertType.INFORMATION, "Room Has Reserved successfully").show();
+            SetNavigation.setUI("ReserveRoomForm","ReserveRoom",this.root);
+        } else {
+            new Alert(Alert.AlertType.ERROR, "Room has not been Reserved successfully").show();
+        }
+    }
+
+    public boolean reserveRoom(String res_id, LocalDate Date, String status, Student student, Room room) {
+        try {
+            ReservationDTO reservationDTO = new ReservationDTO(res_id, Date,status, student, room);
+            return reservationBO.reservationRoom(reservationDTO);
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public void textFields_Key_Released(KeyEvent keyEvent) {

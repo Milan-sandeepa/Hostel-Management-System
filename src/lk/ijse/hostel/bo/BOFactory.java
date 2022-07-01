@@ -1,9 +1,6 @@
 package lk.ijse.hostel.bo;
 
-import lk.ijse.hostel.bo.custom.impl.ReservationBOImpl;
-import lk.ijse.hostel.bo.custom.impl.RoomBOImpl;
-import lk.ijse.hostel.bo.custom.impl.StudentBOImpl;
-import lk.ijse.hostel.bo.custom.impl.UserBOImpl;
+import lk.ijse.hostel.bo.custom.impl.*;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -28,14 +25,14 @@ public class BOFactory {
                 return new RoomBOImpl();
             case RESERVE:
                 return new ReservationBOImpl();
-            case QUERYDAO:
-                return null;
+            case QUERYBO:
+                return new PendingKeyMoneyBOImpl();
             default:
                 return null;
         }
     }
 
     public enum BOTypes {
-        USER, STUDENT, ROOM, RESERVE, QUERYDAO
+        USER, STUDENT, ROOM, RESERVE, QUERYBO
     }
 }

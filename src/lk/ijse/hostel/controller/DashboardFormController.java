@@ -111,7 +111,7 @@ public class DashboardFormController {
                     root = FXMLLoader.load(this.getClass().getResource("../view/ReserveRoomForm.fxml"));
                     break;
                 case "imgMoney":
-                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageReportForm.fxml"));
+                    root = FXMLLoader.load(this.getClass().getResource("../view/ManageReservations.fxml"));
                     break;
 
             }
