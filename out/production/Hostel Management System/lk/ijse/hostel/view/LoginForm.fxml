@@ -13,6 +13,11 @@
 
 <AnchorPane fx:id="context" prefHeight="593.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hostel.controller.LoginFormController">
    <children>
+      <ImageView fitHeight="593.0" fitWidth="1019.0" layoutX="-2.0" pickOnBounds="true">
+         <image>
+            <Image url="@../assets/home.jpg" />
+         </image>
+      </ImageView>
       <AnchorPane layoutX="14.0" layoutY="4.0" prefHeight="585.0" prefWidth="470.0" style="-fx-background-color: white; -fx-background-radius: 15; -fx-border-radius: 15; -fx-border-width: 2; -fx-border-color: black;">
          <children>
             <FontAwesomeIconView glyphName="USER" layoutX="17.0" layoutY="301.0" size="40" />
