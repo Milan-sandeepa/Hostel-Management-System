@@ -94,11 +94,30 @@ public class ReservationDAOImpl implements ReservationDAO {
 
     @Override
     public boolean exist(String s) throws SQLException, ClassNotFoundException {
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("SELECT resId FROM reservation WHERE id=:Id");
+        String id1 = (String) query.setParameter("Id", s).uniqueResult();
+        if (id1 != null) {
+            return true;
+        }
+        transaction.commit();
+        session.close();
         return false;
     }
 
     @Override
     public boolean updateStatus(String res_id, String status) {
-        return false;
+        Session session = FactoryConfiguration.getInstance().getSession();
+        Transaction transaction = session.beginTransaction();
+        Query query = session.createQuery("UPDATE reservation SET status=:newStatus where resId=:userId ");
+        query.setParameter("newStatus", status);
+        query.setParameter("userId", res_id);
+
+        query.executeUpdate();
+
+        transaction.commit();
+        session.close();
+        return true;
     }
 }

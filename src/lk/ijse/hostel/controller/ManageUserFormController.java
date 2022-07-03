@@ -6,13 +6,16 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import lk.ijse.hostel.bo.BOFactory;
 import lk.ijse.hostel.bo.custom.UserBO;
+import lk.ijse.hostel.dto.UserDTO;
 import lk.ijse.hostel.util.SetNavigation;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.Optional;
 
 public class ManageUserFormController {
@@ -23,8 +26,10 @@ public class ManageUserFormController {
     public JFXPasswordField txtPswd;
 
     private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.USER);
+    public Label txtUserID;
 
     public void initialize(){
+        txtUserID.setText(userBO.getUserID());
         txtUser.setText(userBO.getUserName());
         txtPswd.setText(userBO.getPassWord());
     }
@@ -44,8 +49,13 @@ public class ManageUserFormController {
         SetNavigation.setUI("DashboardForm","Home",this.root);
     }
 
-    public void btnUpdateOnAction(ActionEvent actionEvent) {
-
+    public void btnUpdateOnAction(ActionEvent actionEvent) throws SQLException, ClassNotFoundException {
+        String userId=txtUserID.getText();
+        String name=txtUser.getText();
+        String password=txtPswd.getText();
+        new Alert(Alert.AlertType.CONFIRMATION, "Updated...!").show();
+        UserDTO userDTO = new UserDTO(userId,name,password);
+        userBO.updateUser(userDTO);
     }
 
     public void btnDeleteOnAction(ActionEvent actionEvent) {

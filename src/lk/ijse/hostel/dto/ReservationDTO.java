@@ -14,4 +14,5 @@ public class ReservationDTO {
     private String status;
     private Student student;
     private Room room;
+
 }

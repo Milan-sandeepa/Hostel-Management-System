@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface PendingKeyMoneyBO extends SuperBO {
     List<Object[]> getPendingKeyMoney();
+    List<Object[]> getPaidKeyMoney();
 }

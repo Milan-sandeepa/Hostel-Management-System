@@ -40,12 +40,7 @@
                   <Image url="@../assets/user.png" />
                </image>
             </ImageView>
-            <JFXButton buttonType="RAISED" layoutX="244.0" layoutY="436.0" onAction="#LoginOnAction" prefHeight="44.0" prefWidth="110.0" style="-fx-background-color: #4cd137;" text="Log In">
-               <font>
-                  <Font name="System Bold" size="20.0" />
-               </font>
-            </JFXButton>
-            <JFXButton buttonType="RAISED" layoutX="124.0" layoutY="436.0" onAction="#RegisterOnAction" prefHeight="44.0" prefWidth="110.0" style="-fx-background-color: #74b9ff;" text="Register">
+            <JFXButton buttonType="RAISED" layoutX="188.0" layoutY="437.0" onAction="#LoginOnAction" prefHeight="44.0" prefWidth="110.0" style="-fx-background-color: #4cd137;" text="Log In">
                <font>
                   <Font name="System Bold" size="20.0" />
                </font>

@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface QueryDAO extends SuperDAO {
     List<Object[]> getPendingKeyMoney();
+    List<Object[]> getPaidMoney();
 }

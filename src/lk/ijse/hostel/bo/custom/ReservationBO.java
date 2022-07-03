@@ -4,6 +4,7 @@ import lk.ijse.hostel.bo.SuperBO;
 import lk.ijse.hostel.dto.ReservationDTO;
 import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.dto.StudentDTO;
+import lk.ijse.hostel.dto.UserDTO;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -26,4 +27,8 @@ public interface ReservationBO extends SuperBO {
     boolean ifStudentExist(String id) throws SQLException, ClassNotFoundException;
 
     StudentDTO searchStudent(String s)throws SQLException, ClassNotFoundException;
+
+    boolean ifReservationExist(String code) throws SQLException, ClassNotFoundException;
+
+    boolean updateStatus(String id,String status) throws SQLException, ClassNotFoundException;
 }

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
@@ -23,7 +26,7 @@
             </LinearGradient>
          </fill>
       </Rectangle>
-      <Label layoutX="295.0" layoutY="26.0" text="Reservation Details">
+      <Label layoutX="288.0" layoutY="25.0" text="Pending Key Money">
          <font>
             <Font name="Garamond Bold" size="35.0" />
          </font>
@@ -38,13 +41,23 @@
             <DropShadow />
          </effect>
       </FontAwesomeIconView>
-      <TableView fx:id="tblReservation" layoutX="15.0" layoutY="97.0" prefHeight="659.0" prefWidth="848.0">
+      <TableView fx:id="tblReservation" layoutX="15.0" layoutY="97.0" prefHeight="595.0" prefWidth="848.0">
          <columns>
-            <TableColumn fx:id="colResId" prefWidth="172.0" text="Reservation ID" />
-            <TableColumn fx:id="colStudentId" prefWidth="204.0" text="Student ID" />
-            <TableColumn fx:id="colRoomID" prefWidth="271.0" text="RoomID" />
-            <TableColumn fx:id="colStatus" prefWidth="200.0" text="Status" />
+            <TableColumn fx:id="colResId" prefWidth="129.0" text="Reservation ID" />
+            <TableColumn fx:id="colStudentId" prefWidth="114.0" text="Student ID" />
+            <TableColumn fx:id="colStudentName" prefWidth="134.0" text="Student Name" />
+            <TableColumn fx:id="colRoomID" prefWidth="160.0" text="RoomID" />
+            <TableColumn fx:id="colKeyMoney" prefWidth="204.0" text="Pending Money" />
+            <TableColumn fx:id="colStatus" prefWidth="106.0" text="Status" />
          </columns>
       </TableView>
+      <JFXButton buttonType="RAISED" layoutX="743.0" layoutY="709.0" onAction="#btnUpdateOnAction" prefHeight="31.0" prefWidth="113.0" style="-fx-background-color: #4cd137;" text="Update">
+         <effect>
+            <DropShadow />
+         </effect>
+      </JFXButton>
+      <JFXComboBox fx:id="cmbStatus" layoutX="585.0" layoutY="708.0" prefHeight="31.0" prefWidth="131.0" promptText="Select" />
+      <JFXTextField fx:id="txtAmount" labelFloat="true" layoutX="371.0" layoutY="709.0" promptText="Amount" />
+      <JFXTextField fx:id="txtId" editable="false" labelFloat="true" layoutX="21.0" layoutY="708.0" prefHeight="31.0" prefWidth="70.0" promptText="ID" />
    </children>
 </AnchorPane>

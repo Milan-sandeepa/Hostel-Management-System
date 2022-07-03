@@ -11,6 +11,7 @@ import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.entity.Reservation;
 import lk.ijse.hostel.entity.Room;
 import lk.ijse.hostel.entity.Student;
+import lk.ijse.hostel.entity.User;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -87,5 +88,15 @@ public class ReservationBOImpl implements ReservationBO {
     public StudentDTO searchStudent(String id) throws SQLException, ClassNotFoundException {
         Student s = studentDAO.search(id);
         return new StudentDTO(s.getStudent_id(),s.getName(),s.getAddress(),s.getContactNo(),s.getDob(),s.getGender());
+    }
+
+    @Override
+    public boolean ifReservationExist(String code) throws SQLException, ClassNotFoundException {
+        return reservationDAO.exist(code);
+    }
+
+    @Override
+    public boolean updateStatus(String id, String status) throws SQLException, ClassNotFoundException {
+        return reservationDAO.updateStatus(id,status);
     }
 }

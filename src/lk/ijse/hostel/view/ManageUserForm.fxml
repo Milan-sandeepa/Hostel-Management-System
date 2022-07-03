@@ -31,12 +31,7 @@
             <Font name="Garamond Bold" size="35.0" />
          </font>
       </Label>
-      <JFXButton id="btnUpdate" fx:id="btnUpdate" buttonType="RAISED" layoutX="237.0" layoutY="581.0" onAction="#btnUpdateOnAction" prefHeight="39.0" prefWidth="105.0" style="-fx-cursor: hand; -fx-background-color: #00a8ff;" text="Update">
-         <font>
-            <Font name="System Bold" size="18.0" />
-         </font>
-      </JFXButton>
-      <JFXButton id="btnDelete" fx:id="btnDelete" buttonType="RAISED" layoutX="357.0" layoutY="581.0" onAction="#btnDeleteOnAction" prefHeight="39.0" prefWidth="105.0" style="-fx-cursor: hand; -fx-background-color: #e84118;" text="Delete">
+      <JFXButton id="btnUpdate" fx:id="btnUpdate" buttonType="RAISED" layoutX="281.0" layoutY="581.0" onAction="#btnUpdateOnAction" prefHeight="39.0" prefWidth="105.0" style="-fx-cursor: hand; -fx-background-color: #00a8ff;" text="Update">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
@@ -69,5 +64,7 @@
       <JFXTextField fx:id="txtUser" layoutX="252.0" layoutY="383.0" promptText="admin" />
       <JFXPasswordField fx:id="txtPswd" layoutX="252.0" layoutY="448.0" promptText="1234" />
       <FontAwesomeIconView glyphName="EYE" layoutX="399.0" layoutY="473.0" onMousePressed="#showPassword" onMouseReleased="#hidePassword" size="20" />
+      <Label layoutX="540.0" layoutY="104.0" text="User ID :" />
+      <Label fx:id="txtUserID" layoutX="614.0" layoutY="104.0" text="U000" />
    </children>
 </AnchorPane>

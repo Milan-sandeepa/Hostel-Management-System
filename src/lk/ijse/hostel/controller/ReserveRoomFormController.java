@@ -61,6 +61,8 @@ public class ReserveRoomFormController {
 
     private final ReservationBOImpl reservationBO= (ReservationBOImpl) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.RESERVE);
     public JFXTextField txtAvailableRooms;
+    public JFXTextField txtAmount;
+    public TableColumn colPaid;
 
     private String ReservationID;
 
@@ -129,10 +131,11 @@ public class ReserveRoomFormController {
         colRoomCode.setCellValueFactory(new PropertyValueFactory<>("code"));
         colType.setCellValueFactory(new PropertyValueFactory<>("type"));
         colKeyMoney.setCellValueFactory(new PropertyValueFactory<>("keyMoney"));
+        colPaid.setCellValueFactory(new PropertyValueFactory<>("paid"));
         colQty.setCellValueFactory(new PropertyValueFactory<>("qty"));
         colTotal.setCellValueFactory(new PropertyValueFactory<>("total"));
         colStatus.setCellValueFactory(new PropertyValueFactory<>("status"));
-        TableColumn<ReservationDetailsTM, Button> lastCol = (TableColumn<ReservationDetailsTM, Button>) tblReserveDetails.getColumns().get(6);
+        TableColumn<ReservationDetailsTM, Button> lastCol = (TableColumn<ReservationDetailsTM, Button>) tblReserveDetails.getColumns().get(7);
 
         lastCol.setCellValueFactory(param -> {
             Button btnDelete = new Button("Delete");
@@ -250,7 +253,8 @@ public class ReserveRoomFormController {
         String status = cmbStatus.getSelectionModel().getSelectedItem();
         int qtyWant=Integer.parseInt(txtQty.getText());
         double keyMoney = Double.parseDouble(txtKeyMoney.getText());
-        double total = keyMoney * qtyWant;
+        double paidMoney=Double.parseDouble(txtAmount.getText());
+        double total = (keyMoney-paidMoney) * qtyWant;
 
         if (qtyWant<=Integer.parseInt(txtAvailableRooms.getText())){
             boolean exists = tblReserveDetails.getItems().stream().anyMatch(detail -> detail.getCode().equals(roomID));
@@ -264,6 +268,7 @@ public class ReserveRoomFormController {
                     reservationDetailsTM.setQty(qtyWant);
                     reservationDetailsTM.setTotal(total);
                     reservationDetailsTM.setStatus(status);
+                    reservationDetailsTM.setPaid(paidMoney);
                     tblReserveDetails.getSelectionModel().clearSelection();
                 } else {
                     reservationDetailsTM.setQty(reservationDetailsTM.getQty() + qtyWant);
@@ -272,7 +277,7 @@ public class ReserveRoomFormController {
                 }
                 tblReserveDetails.refresh();
             } else {
-                tblReserveDetails.getItems().add(new ReservationDetailsTM(roomID,RoomType, keyMoney, qtyWant, total,status ));
+                tblReserveDetails.getItems().add(new ReservationDetailsTM(roomID,RoomType, keyMoney,paidMoney,qtyWant, total,status ));
             }
             cmbStudentId.requestFocus();
             calculateTotal();
@@ -296,7 +301,22 @@ public class ReserveRoomFormController {
         StudentDTO studentDTO = reservationBO.searchStudent(cmbStudentId.getValue());
         RoomDTO roomDTO = reservationBO.searchRoom(cmbRoomId.getValue());
         Student student = new Student(studentDTO.getId(), studentDTO.getName(), studentDTO.getAddress(), studentDTO.getContactNo(), studentDTO.getDob(), studentDTO.getGender());
-        Room room = new Room(roomDTO.getRoom_Type_id(), roomDTO.getType(), roomDTO.getKey_money(), roomDTO.getQty() - 1);
+
+        String room_type_id = roomDTO.getRoom_Type_id();
+        String type = roomDTO.getType();
+        String key_money = roomDTO.getKey_money();
+
+        double pending=Double.parseDouble(key_money);;
+        double paidMoney=Double.parseDouble(txtAmount.getText());
+
+        double total=pending-paidMoney;
+
+        String tot=String.valueOf(total);
+
+        int qty = roomDTO.getQty();
+
+        Room room = new Room(room_type_id,type,tot, qty - 1);
+
         String stat=cmbStatus.getValue();
         boolean b = reserveRoom(ReservationID,
                 LocalDate.now(),

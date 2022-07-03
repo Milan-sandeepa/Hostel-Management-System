@@ -48,13 +48,14 @@
       </FontAwesomeIconView>
       <TableView fx:id="tblReserveDetails" layoutX="14.0" layoutY="410.0" prefHeight="279.0" prefWidth="847.0">
          <columns>
-            <TableColumn fx:id="colRoomCode" prefWidth="106.0" text="Code" />
-            <TableColumn fx:id="colType" prefWidth="137.0" text="Room Type" />
-            <TableColumn fx:id="colKeyMoney" prefWidth="134.0" text="Key Money" />
-            <TableColumn fx:id="colQty" prefWidth="114.0" text="Qty" />
-            <TableColumn fx:id="colTotal" prefWidth="116.0" text="Total" />
-            <TableColumn fx:id="colStatus" prefWidth="135.0" text="Status" />
-            <TableColumn fx:id="colOption" prefWidth="100.0" text="Delete" />
+            <TableColumn fx:id="colRoomCode" prefWidth="88.0" text="Code" />
+            <TableColumn fx:id="colType" prefWidth="97.0" text="Room Type" />
+            <TableColumn fx:id="colKeyMoney" prefWidth="127.0" text="Key Money" />
+            <TableColumn fx:id="colPaid" prefWidth="123.0" text="Paid" />
+            <TableColumn fx:id="colQty" prefWidth="49.0" text="Qty" />
+            <TableColumn fx:id="colTotal" prefWidth="155.0" text="Total" />
+            <TableColumn fx:id="colStatus" prefWidth="94.0" text="Status" />
+            <TableColumn fx:id="colOption" prefWidth="113.0" text="Delete" />
          </columns>
       </TableView>
       <Label fx:id="lblDate" alignment="CENTER_RIGHT" layoutX="738.0" layoutY="96.0" prefHeight="27.0" prefWidth="120.0" text="2022-06-1">
@@ -109,8 +110,13 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </JFXButton>
-      <JFXComboBox fx:id="cmbStatus" labelFloat="true" layoutX="363.0" layoutY="275.0" prefHeight="31.0" prefWidth="286.0" promptText="Select Paid Or Not" />
+      <JFXComboBox fx:id="cmbStatus" labelFloat="true" layoutX="484.0" layoutY="275.0" prefHeight="31.0" prefWidth="165.0" promptText="Select Paid Or Not" />
       <JFXTextField fx:id="txtAvailableRooms" editable="false" labelFloat="true" layoutX="20.0" layoutY="325.0" prefHeight="39.0" prefWidth="286.0" promptText="Available rooms">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </JFXTextField>
+      <JFXTextField fx:id="txtAmount" labelFloat="true" layoutX="358.0" layoutY="268.0" prefHeight="39.0" prefWidth="120.0" promptText="Amount :">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>

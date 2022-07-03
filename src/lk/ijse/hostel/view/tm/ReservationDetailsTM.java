@@ -8,6 +8,7 @@ public class ReservationDetailsTM {
     private String code;
     private String  type;
     private double keyMoney;
+    private double paid;
     private int qty;
     private double total;
     private String status;

@@ -8,8 +8,6 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-
-
 <AnchorPane fx:id="root" prefHeight="651.0" prefWidth="1012.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="lk.ijse.hostel.controller.DashboardFormController">
    <children>
       <AnchorPane prefHeight="70.0" prefWidth="1012.0" style="-fx-background-color: #54a0ff;">
@@ -59,7 +57,7 @@
             <DropShadow />
          </effect>
          <children>
-            <Label layoutX="20.0" layoutY="8.0" text="00" textFill="WHITE">
+            <Label fx:id="lblNonAc" layoutX="16.0" layoutY="8.0" text="0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
@@ -71,7 +69,7 @@
             <DropShadow />
          </effect>
          <children>
-            <Label layoutX="20.0" layoutY="7.0" text="00" textFill="WHITE">
+            <Label fx:id="lblNonAcFood" layoutX="14.0" layoutY="7.0" text="0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
@@ -83,7 +81,7 @@
             <DropShadow />
          </effect>
          <children>
-            <Label layoutX="20.0" layoutY="4.0" text="00" textFill="WHITE">
+            <Label fx:id="lblAc" layoutX="15.0" layoutY="4.0" text="0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
@@ -95,7 +93,7 @@
             <DropShadow />
          </effect>
          <children>
-            <Label layoutX="20.0" layoutY="5.0" text="00" textFill="WHITE">
+            <Label fx:id="lblAcFood" layoutX="13.0" layoutY="5.0" text="0" textFill="WHITE">
                <font>
                   <Font name="System Bold" size="70.0" />
                </font>
@@ -154,5 +152,10 @@
             <DropShadow />
          </effect>
       </ImageView>
+      <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="919.0" layoutY="561.0" onMouseClicked="#navigateDetails" size="40" textAlignment="CENTER">
+         <effect>
+            <DropShadow />
+         </effect>
+      </FontAwesomeIconView>
    </children>
 </AnchorPane>

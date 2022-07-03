@@ -14,4 +14,9 @@ public class PendingKeyMoneyBOImpl implements PendingKeyMoneyBO {
     public List<Object[]> getPendingKeyMoney() {
         return queryDAO.getPendingKeyMoney();
     }
+
+    @Override
+    public List<Object[]> getPaidKeyMoney() {
+        return queryDAO.getPaidMoney();
+    }
 }

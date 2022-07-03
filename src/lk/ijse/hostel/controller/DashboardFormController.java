@@ -1,5 +1,6 @@
 package lk.ijse.hostel.controller;
 
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.animation.ScaleTransition;
 import javafx.animation.TranslateTransition;
 import javafx.application.Platform;
@@ -16,10 +17,16 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import lk.ijse.hostel.bo.BOFactory;
+import lk.ijse.hostel.bo.custom.RoomBO;
+import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.util.SetNavigation;
+import lk.ijse.hostel.view.tm.RoomTM;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Optional;
 
 public class DashboardFormController {
@@ -30,6 +37,31 @@ public class DashboardFormController {
     public ImageView imgRoom;
     public ImageView imgReserve;
     public ImageView imgMoney;
+    public Label lblNonAc;
+    public Label lblNonAcFood;
+    public Label lblAc;
+    public Label lblAcFood;
+
+    private final RoomBO roomBO = (RoomBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ROOM);
+    public FontAwesomeIconView imgBook;
+
+    public void initialize(){
+        try {
+            loadAvailableRooms();
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadAvailableRooms() throws SQLException, ClassNotFoundException {
+        ArrayList<RoomDTO> allRooms = roomBO.getAllRooms();
+        lblAc.setText(String.valueOf(allRooms.get(0).getQty()));
+        lblNonAc.setText(String.valueOf(allRooms.get(2).getQty()));
+        lblNonAcFood.setText(String.valueOf(allRooms.get(1).getQty()));
+        lblAcFood.setText(String.valueOf(allRooms.get(3).getQty()));
+    }
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
@@ -137,5 +169,9 @@ public class DashboardFormController {
 
     public void navigateToHome(MouseEvent mouseEvent) {
 
+    }
+
+    public void navigateDetails(MouseEvent mouseEvent) throws IOException {
+        SetNavigation.setUI("ReservationDetailsForm","ReservationDetails",this.root);
     }
 }
