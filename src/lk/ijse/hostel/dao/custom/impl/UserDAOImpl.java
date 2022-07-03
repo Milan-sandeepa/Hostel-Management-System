@@ -94,19 +94,16 @@ public class UserDAOImpl implements UserDAO {
 
     @Override
     public boolean update(User entity) {
-        String userId=entity.getUserId();
-        String newUname=entity.getUsername();
 
         Session session = FactoryConfiguration.getInstance().getSession();
         Transaction transaction = session.beginTransaction();
-        Query query = session.createQuery("UPDATE User SET username=:newUsername where userId=:userId ");
-        query.setParameter("newUsername", newUname);
-        query.setParameter("userId", userId);
 
-        query.executeUpdate();
+
+        session.update(entity);
 
         transaction.commit();
         session.close();
+
         return true;
     }
 
