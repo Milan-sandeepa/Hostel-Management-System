@@ -6,11 +6,9 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -20,16 +18,15 @@ import lk.ijse.hostel.bo.custom.StudentBO;
 import lk.ijse.hostel.dto.RoomDTO;
 import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.util.SetNavigation;
+import lk.ijse.hostel.util.ValidationUtil;
 import lk.ijse.hostel.view.tm.RoomTM;
 import lk.ijse.hostel.view.tm.StudentTM;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public class ManageRoomFormController {
     public AnchorPane root;
@@ -47,6 +44,7 @@ public class ManageRoomFormController {
     public JFXComboBox cmbRoomType;
 
     private final RoomBO roomBO = (RoomBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ROOM);
+    LinkedHashMap<TextField, Pattern> map = new LinkedHashMap();
 
     public void initialize(){
 
@@ -73,8 +71,17 @@ public class ManageRoomFormController {
             }
         });
 
+        Pattern idPattern = Pattern.compile("^(RM-)[0-9]{4}$");
+        Pattern keyMoneyPattern = Pattern.compile("^[A-z ,-/0-9]+$");
+        Pattern qty = Pattern.compile("^[0-9]+$");
+
+
+        map.put(txtRoomId, idPattern);
+        map.put(txtRoomKeyMoney, keyMoneyPattern);
+        map.put(txtRoomQty, qty);
+
         loadAllRooms();
-        btnSave.setDisable(false);
+        btnSave.setDisable(true);
         btnDelete.setDisable(true);
 
     }
@@ -199,7 +206,15 @@ public class ManageRoomFormController {
     }
 
     public void textFields_Key_Released(KeyEvent keyEvent) {
-
+        Object response = ValidationUtil.validate(map,btnSave);
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            if (response instanceof TextField) {
+                TextField errorText = (TextField) response;
+                errorText.requestFocus();
+            } else if (response instanceof Boolean) {
+                //new Alert(Alert.AlertType.INFORMATION, "Aded").showAndWait();
+            }
+        }
     }
 
     private boolean existRoom(String id) throws SQLException, ClassNotFoundException {
