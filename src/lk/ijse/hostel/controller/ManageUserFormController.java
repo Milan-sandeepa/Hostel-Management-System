@@ -3,6 +3,7 @@ package lk.ijse.hostel.controller;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -27,11 +28,15 @@ public class ManageUserFormController {
 
     private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.USER);
     public Label txtUserID;
+    public JFXTextField txtShowPassword;
+    public FontAwesomeIconView passShow;
 
     public void initialize(){
         txtUserID.setText(userBO.getUserID());
         txtUser.setText(userBO.getUserName());
         txtPswd.setText(userBO.getPassWord());
+
+        txtShowPassword.setVisible(false);
     }
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
@@ -63,10 +68,15 @@ public class ManageUserFormController {
     }
 
     public void showPassword(MouseEvent mouseEvent) {
-
+        txtShowPassword.setText(txtPswd.getText());
+        txtShowPassword.setVisible(true);
+        txtPswd.setVisible(false);
     }
 
     public void hidePassword(MouseEvent mouseEvent) {
-
+        txtShowPassword.setVisible(false);
+        txtPswd.setVisible(true);
+        txtPswd.requestFocus();
     }
+
 }

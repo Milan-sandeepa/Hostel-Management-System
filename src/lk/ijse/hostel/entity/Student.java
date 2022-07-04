@@ -22,7 +22,7 @@ public class Student {
     private String dob;
     private String gender;
 
-    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "student", fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     private List<Reservation> resList = new ArrayList<>();
 
     public Student(String student_id, String name, String address, String contactNo, String dob, String gender) {

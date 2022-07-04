@@ -49,8 +49,7 @@ public class ManageRoomFormController {
     private final RoomBO roomBO = (RoomBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.ROOM);
 
     public void initialize(){
-        txtRoomId.setText(generateNewId());
-        txtRoomId.setDisable(true);
+
         btnUpdate.setDisable(true);
 
         ObservableList type = FXCollections.observableArrayList("Non-AC","Non-AC / Food","AC","AC / Food");
@@ -94,31 +93,6 @@ public class ManageRoomFormController {
         }
     }
 
-    private String generateNewId() {
-        try {
-            return roomBO.generateNewID();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        if (tblRoom.getItems().isEmpty()) {
-            return "RM-001";
-        } else {
-            String id = getLastRoomId();
-            int newStudentId = Integer.parseInt(id.replace("RM-", "")) + 1;
-            return String.format("RM-%03d", newStudentId);
-        }
-    }
-
-    private String getLastRoomId() {
-        List<RoomTM> tempRoomList = new ArrayList<>(tblRoom.getItems());
-        Collections.sort(tempRoomList);
-        return tempRoomList.get(tempRoomList.size() - 1).getRoom_Type_id();
-    }
-
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION,
                 "Are You Sure LogOut?", ButtonType.YES,ButtonType.NO);
@@ -146,7 +120,6 @@ public class ManageRoomFormController {
             }else{
                 new Alert(Alert.AlertType.CONFIRMATION,  "Saved...!").show();
                 clear();
-                txtRoomId.setText(generateNewId());
                 RoomDTO roomDTO = new RoomDTO(id, roomType, keyMoney, qty);
                 roomBO.addRoom(roomDTO);
                 tblRoom.refresh();
@@ -158,7 +131,6 @@ public class ManageRoomFormController {
             e.printStackTrace();
         }
         clear();
-        txtRoomId.setText(generateNewId());
         tblRoom.refresh();
         SetNavigation.setUI("ManageRoomForm","ManageRoom",this.root);
     }
@@ -212,7 +184,6 @@ public class ManageRoomFormController {
                     tblRoom.getItems().remove(tblRoom.getSelectionModel().getSelectedItem());
                     tblRoom.getSelectionModel().clearSelection();
                     clear();
-                    txtRoomId.setText(generateNewId());
                     btnSave.setDisable(true);
                     btnDelete.setDisable(true);
                     btnUpdate.setDisable(true);

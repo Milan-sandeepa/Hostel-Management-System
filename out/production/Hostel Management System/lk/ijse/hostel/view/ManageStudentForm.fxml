@@ -57,7 +57,7 @@
             <DropShadow />
          </effect>
       </FontAwesomeIconView>
-      <JFXTextField fx:id="txtStudentId" labelFloat="true" layoutX="30.0" layoutY="128.0" prefHeight="31.0" prefWidth="337.0" promptText="Student ID :">
+      <JFXTextField fx:id="txtStudentId" labelFloat="true" layoutX="30.0" layoutY="128.0" onKeyReleased="#textFields_Key_Released" prefHeight="31.0" prefWidth="337.0" promptText="Student ID :">
          <font>
             <Font name="System Bold" size="15.0" />
          </font>

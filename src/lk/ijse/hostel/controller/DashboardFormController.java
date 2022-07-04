@@ -56,11 +56,12 @@ public class DashboardFormController {
     }
 
     private void loadAvailableRooms() throws SQLException, ClassNotFoundException {
-        ArrayList<RoomDTO> allRooms = roomBO.getAllRooms();
-        lblAc.setText(String.valueOf(allRooms.get(0).getQty()));
-        lblNonAc.setText(String.valueOf(allRooms.get(2).getQty()));
-        lblNonAcFood.setText(String.valueOf(allRooms.get(1).getQty()));
-        lblAcFood.setText(String.valueOf(allRooms.get(3).getQty()));
+//        ArrayList<RoomDTO> allRooms = roomBO.getAllRooms();
+//
+//        lblAc.setText(String.valueOf(allRooms.get(0).getQty()));
+//        lblNonAc.setText(String.valueOf(allRooms.get(1).getQty()));
+//        lblNonAcFood.setText(String.valueOf(allRooms.get(2).getQty()));
+//        lblAcFood.setText(String.valueOf(allRooms.get(3).getQty()));
     }
 
     public void signOutPressed(MouseEvent mouseEvent) throws IOException {

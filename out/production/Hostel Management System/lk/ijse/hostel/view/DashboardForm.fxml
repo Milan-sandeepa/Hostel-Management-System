@@ -52,75 +52,7 @@
             <Font size="12.0" />
          </font>
       </Label>
-      <AnchorPane layoutX="159.0" layoutY="110.0" opacity="0.7" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #4cd137; -fx-background-radius: 10;">
-         <effect>
-            <DropShadow />
-         </effect>
-         <children>
-            <Label fx:id="lblNonAc" layoutX="16.0" layoutY="8.0" text="0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="70.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="364.0" layoutY="111.0" opacity="0.7" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #00a8ff; -fx-background-radius: 10;">
-         <effect>
-            <DropShadow />
-         </effect>
-         <children>
-            <Label fx:id="lblNonAcFood" layoutX="14.0" layoutY="7.0" text="0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="70.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="561.0" layoutY="111.0" opacity="0.7" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #fbc531; -fx-background-radius: 10;">
-         <effect>
-            <DropShadow />
-         </effect>
-         <children>
-            <Label fx:id="lblAc" layoutX="15.0" layoutY="4.0" text="0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="70.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <AnchorPane layoutX="753.0" layoutY="111.0" opacity="0.7" prefHeight="100.0" prefWidth="120.0" style="-fx-background-color: #487eb0; -fx-background-radius: 10;">
-         <effect>
-            <DropShadow />
-         </effect>
-         <children>
-            <Label fx:id="lblAcFood" layoutX="13.0" layoutY="5.0" text="0" textFill="WHITE">
-               <font>
-                  <Font name="System Bold" size="70.0" />
-               </font>
-            </Label>
-         </children>
-      </AnchorPane>
-      <Label layoutX="181.0" layoutY="237.0" text="Non-AC">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="353.0" layoutY="237.0" text="Non-AC / Food">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="608.0" layoutY="237.0" text="AC">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <Label layoutX="766.0" layoutY="237.0" text="AC / Food">
-         <font>
-            <Font name="System Bold" size="20.0" />
-         </font>
-      </Label>
-      <ImageView fx:id="imgStudent" fitHeight="120.0" fitWidth="170.0" layoutX="159.0" layoutY="330.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgStudent" fitHeight="120.0" fitWidth="170.0" layoutX="137.0" layoutY="245.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/student.png" />
          </image>
@@ -128,7 +60,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="imgRoom" fitHeight="120.0" fitWidth="170.0" layoutX="364.0" layoutY="330.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgRoom" fitHeight="120.0" fitWidth="170.0" layoutX="342.0" layoutY="245.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/room.png" />
          </image>
@@ -136,7 +68,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="imgReserve" fitHeight="120.0" fitWidth="170.0" layoutX="561.0" layoutY="330.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgReserve" fitHeight="120.0" fitWidth="170.0" layoutX="539.0" layoutY="245.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/reservation.png" />
          </image>
@@ -144,7 +76,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <ImageView fx:id="imgMoney" fitHeight="120.0" fitWidth="170.0" layoutX="753.0" layoutY="330.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
+      <ImageView fx:id="imgMoney" fitHeight="120.0" fitWidth="170.0" layoutX="731.0" layoutY="245.0" onMouseClicked="#navigate" onMouseEntered="#playMouseEnterAnimation" onMouseExited="#playMouseExitAnimation" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../assets/pay.png" />
          </image>
@@ -152,7 +84,7 @@
             <DropShadow />
          </effect>
       </ImageView>
-      <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="919.0" layoutY="561.0" onMouseClicked="#navigateDetails" size="40" textAlignment="CENTER">
+      <FontAwesomeIconView fill="WHITE" glyphName="BOOK" layoutX="897.0" layoutY="476.0" onMouseClicked="#navigateDetails" size="40" textAlignment="CENTER">
          <effect>
             <DropShadow />
          </effect>

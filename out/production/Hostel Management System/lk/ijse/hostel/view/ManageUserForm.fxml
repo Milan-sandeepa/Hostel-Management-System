@@ -62,9 +62,10 @@
          </font>
       </Label>
       <JFXTextField fx:id="txtUser" layoutX="252.0" layoutY="383.0" promptText="admin" />
-      <JFXPasswordField fx:id="txtPswd" layoutX="252.0" layoutY="448.0" promptText="1234" />
-      <FontAwesomeIconView glyphName="EYE" layoutX="399.0" layoutY="473.0" onMousePressed="#showPassword" onMouseReleased="#hidePassword" size="20" />
+      <JFXPasswordField fx:id="txtPswd" layoutX="252.0" layoutY="448.0" />
+      <FontAwesomeIconView fx:id="passShow" glyphName="EYE" layoutX="399.0" layoutY="473.0" onMousePressed="#showPassword" onMouseReleased="#hidePassword" size="20" />
       <Label layoutX="540.0" layoutY="104.0" text="User ID :" />
       <Label fx:id="txtUserID" layoutX="614.0" layoutY="104.0" text="U000" />
+      <JFXTextField fx:id="txtShowPassword" layoutX="252.0" layoutY="448.0" prefHeight="31.0" prefWidth="143.0" />
    </children>
 </AnchorPane>

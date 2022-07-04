@@ -1,5 +1,7 @@
 package lk.ijse.hostel.controller;
 
+import com.jfoenix.controls.JFXTextField;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -7,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -35,6 +38,14 @@ public class LoginFormController {
 
     //Dependancy Injection-property injection
     private final UserBO userBO = (UserBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.USER);
+    public FontAwesomeIconView passShow;
+    public JFXTextField txtShowPassword;
+
+    public void initialize(){
+
+        txtShowPassword.setVisible(false);
+
+    }
 
     public void LoginOnAction(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
         String uname=txtUserName.getText();
@@ -47,5 +58,16 @@ public class LoginFormController {
         }else {
             lblError.setText("Enter Correct Login Details");
         }
+    }
+
+    public void showPassword(MouseEvent mouseEvent) {
+        txtShowPassword.setText(txtPassword.getText());
+        txtShowPassword.setVisible(true);
+        txtPassword.setVisible(false);
+    }
+
+    public void hidePassword(MouseEvent mouseEvent) {
+        txtShowPassword.setVisible(false);
+        txtPassword.setVisible(true);
     }
 }

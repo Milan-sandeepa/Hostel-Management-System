@@ -7,11 +7,9 @@ import com.jfoenix.controls.JFXTextField;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -21,6 +19,7 @@ import lk.ijse.hostel.dto.StudentDTO;
 import lk.ijse.hostel.entity.Student;
 import lk.ijse.hostel.util.FactoryConfiguration;
 import lk.ijse.hostel.util.SetNavigation;
+import lk.ijse.hostel.util.ValidationUtil;
 import lk.ijse.hostel.view.tm.StudentTM;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
@@ -28,10 +27,8 @@ import org.hibernate.Transaction;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
+import java.util.regex.Pattern;
 
 import static org.jboss.logging.NDC.clear;
 
@@ -56,11 +53,9 @@ public class ManageStudentFormController {
     public TableColumn colGender;
 
     private final StudentBO studentBO = (StudentBO) BOFactory.getBOFactory().getBO(BOFactory.BOTypes.STUDENT);
-
+    LinkedHashMap<TextField, Pattern> map = new LinkedHashMap();
 
     public void initialize(){
-        txtStudentId.setText(generateNewId());
-        txtStudentId.setDisable(true);
         btnUpdate.setDisable(true);
 
         ObservableList sex = FXCollections.observableArrayList("Male","Female");
@@ -88,8 +83,19 @@ public class ManageStudentFormController {
             }
         });
 
+        Pattern idPattern = Pattern.compile("^[A-z 0-9-]+$");
+        Pattern namePattern = Pattern.compile("^[A-z ]+$");
+        Pattern addressPattern = Pattern.compile("^[A-z1-9 /,.-]+$");
+        Pattern contactPattern = Pattern.compile("^[0-9]{10,11}$");
+
+
+        map.put(txtStudentId, idPattern);
+        map.put(txtStudentName, namePattern);
+        map.put(txtStudentAddress, addressPattern);
+        map.put(txtStudentContact, contactPattern);
+
         loadAllStudents();
-        btnSave.setDisable(false);
+        btnSave.setDisable(true);
         btnDelete.setDisable(true);
     }
 
@@ -137,7 +143,6 @@ public class ManageStudentFormController {
             }else{
                 new Alert(Alert.AlertType.CONFIRMATION,  "Saved...!").show();
                 clear();
-                txtStudentId.setText(generateNewId());
                 StudentDTO studentDTO = new StudentDTO(id, name, address, contact, dob, gender);
                 studentBO.addStudent(studentDTO);
                 tblStudent.refresh();
@@ -149,7 +154,6 @@ public class ManageStudentFormController {
             e.printStackTrace();
         }
         clear();
-        txtStudentId.setText(generateNewId());
         tblStudent.refresh();
         SetNavigation.setUI("ManageStudentForm","ManageStudent",this.root);
     }
@@ -206,7 +210,6 @@ public class ManageStudentFormController {
                     tblStudent.getItems().remove(tblStudent.getSelectionModel().getSelectedItem());
                     tblStudent.getSelectionModel().clearSelection();
                     clear();
-                    txtStudentId.setText(generateNewId());
                     btnSave.setDisable(true);
                     btnDelete.setDisable(true);
                     btnUpdate.setDisable(true);
@@ -221,37 +224,20 @@ public class ManageStudentFormController {
         }
     }
 
-    private String generateNewId() {
-        try {
-            return studentBO.generateNewID();
-        } catch (SQLException e) {
-            new Alert(Alert.AlertType.ERROR, "Failed to generate a new id " + e.getMessage()).show();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-
-
-        if (tblStudent.getItems().isEmpty()) {
-            return "S001";
-        } else {
-            String id = getLastStudentId();
-            int newStudentId = Integer.parseInt(id.replace("S", "")) + 1;
-            return String.format("S%03d", newStudentId);
-        }
-    }
-
-    private String getLastStudentId() {
-        List<StudentTM> tempStudentList = new ArrayList<>(tblStudent.getItems());
-        Collections.sort(tempStudentList);
-        return tempStudentList.get(tempStudentList.size() - 1).getId();
-    }
-
     private boolean existStudent(String id) throws SQLException, ClassNotFoundException {
         return studentBO.ifStudentExist(id);
     }
 
     public void textFields_Key_Released(KeyEvent keyEvent) {
-
+        Object response = ValidationUtil.validate(map,btnSave);
+        if (keyEvent.getCode() == KeyCode.ENTER) {
+            if (response instanceof TextField) {
+                TextField errorText = (TextField) response;
+                errorText.requestFocus();
+            } else if (response instanceof Boolean) {
+                //new Alert(Alert.AlertType.INFORMATION, "Aded").showAndWait();
+            }
+        }
     }
 
     private void clear() {

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.PasswordField?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -22,9 +22,7 @@
          <children>
             <FontAwesomeIconView glyphName="USER" layoutX="17.0" layoutY="301.0" size="40" />
             <FontAwesomeIconView glyphName="KEY" layoutX="17.0" layoutY="382.0" size="40" />
-            <TextField fx:id="txtUserName" layoutX="113.0" layoutY="267.0" prefHeight="40.0" prefWidth="321.0" promptText="User Name" />
-            <PasswordField fx:id="txtPassword" layoutX="113.0" layoutY="346.0" prefHeight="40.0" prefWidth="321.0" promptText="Password" />
-            <Label alignment="CENTER" layoutX="11.0" layoutY="40.0" prefHeight="40.0" prefWidth="463.0" text="Sign In" textFill="#55efc4">
+            <Label alignment="CENTER" layoutX="11.0" layoutY="46.0" prefHeight="40.0" prefWidth="463.0" text="Sign In" textFill="#55efc4">
                <font>
                   <Font name="Garamond Bold" size="35.0" />
                </font>
@@ -35,7 +33,7 @@
                </font>
             </Label>
             <Label alignment="CENTER" layoutX="8.0" layoutY="547.0" prefHeight="26.0" prefWidth="463.0" style="-fx-background-color: white;" text="Copyright 2022 D24 Hostel Management" />
-            <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="179.0" layoutY="107.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="120.0" fitWidth="120.0" layoutX="179.0" layoutY="113.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../assets/user.png" />
                </image>
@@ -45,6 +43,10 @@
                   <Font name="System Bold" size="20.0" />
                </font>
             </JFXButton>
+            <JFXTextField fx:id="txtUserName" labelFloat="true" layoutX="113.0" layoutY="272.0" prefHeight="31.0" prefWidth="248.0" promptText="User Name" />
+            <JFXPasswordField fx:id="txtPassword" labelFloat="true" layoutX="114.0" layoutY="353.0" prefHeight="31.0" prefWidth="248.0" promptText="Password" />
+            <FontAwesomeIconView fx:id="passShow" glyphName="EYE" layoutX="341.0" layoutY="375.0" onMousePressed="#showPassword" onMouseReleased="#hidePassword" size="20" />
+            <JFXTextField fx:id="txtShowPassword" labelFloat="true" layoutX="114.0" layoutY="353.0" prefHeight="31.0" prefWidth="216.0" promptText="Password" />
          </children>
          <effect>
             <DropShadow />
